@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# Generate graphs in SVG format for power and temperature, depending how
+# script is called
+#
+# Give arguments for period lengths to use for update, otherwise
+# use default (5, 15, 60 minutes, 1 day, 1 week, 1 month, 1 year).
+#
+
+outdir=.
+
+if [ -z $1 ]; then
+    periods='5 15 60 1440 10080 43829 525949'
+else
+    periods=$@
+fi
+
+if [ `basename $0` = "update-power" ]; then
+    for i in $periods; do
+	echo Power $i
+	rrdtool graph $outdir/power-${i}min.svg \
+	    --start end-${i}min --end now-15s \
+	    -a SVG --width 700 --slope-mode --no-legend \
+	    --color BACK#00000000 \
+	    --color CANVAS#00000000 \
+	    --color SHADEA#00000000 \
+	    --color SHADEB#00000000 \
+	    --color GRID#600000ff \
+	    --color MGRID#800000ff \
+	    --color FONT#a04040ff \
+	    --color AXIS#a04040ff \
+	    --color FRAME#ffffffff \
+	    --color ARROW#a04040ff \
+	    --vertical-label Watts --lower-limit 0 --alt-autoscale-max \
+	    --units-length 4 --units-exponent 0 \
+	    DEF:Power=powertemp.rrd:Power:AVERAGE \
+	    DEF:PowerMin=powertemp.rrd:Power:MIN \
+	    DEF:PowerMax=powertemp.rrd:Power:MAX \
+	    LINE1:PowerMin#00a0e040 \
+	    LINE1:PowerMax#00a0e040 \
+	    LINE1:Power#00ffff \
+	    AREA:Power#00a0e060 \
+	    > /dev/null
+    done
+fi
+
+if [ `basename $0` = "update-temperature" ]; then
+    for i in $periods; do
+	echo Temperature $i
+	rrdtool graph $outdir/temperature-${i}min.svg \
+	    --start end-${i}min --end now-15s \
+	    -a SVG --width 700 --slope-mode --no-legend \
+	    --color BACK#00000000 \
+	    --color CANVAS#00000000 \
+	    --color SHADEA#00000000 \
+	    --color SHADEB#00000000 \
+	    --color GRID#600000ff \
+	    --color MGRID#800000ff \
+	    --color FONT#a04040ff \
+	    --color AXIS#a04040ff \
+	    --color FRAME#ffffffff \
+	    --color ARROW#a04040ff \
+	    --vertical-label °C --lower-limit 0 --alt-autoscale-max \
+	    --units-length 2 --units-exponent 0 \
+	    DEF:Temperature=powertemp.rrd:Temperature:AVERAGE \
+	    DEF:TemperatureMin=powertemp.rrd:Temperature:MIN \
+	    DEF:TemperatureMax=powertemp.rrd:Temperature:MAX \
+	    LINE0.5:TemperatureMin#a0e00040 \
+	    LINE0.5:TemperatureMax#a0e00040 \
+	    LINE1:Temperature#ffff00 \
+	    > /dev/null
+    done
+fi
+

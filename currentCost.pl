@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 
 # Reads data from a Current Cost device via USB port and logs it to a file
+# and RRDtool round-robin database.
 
+# Forked from Jack Kelly's Perl script: https://github.com/JackKelly/CurrentCostLogger which itself was…
 # Based on Paul Mutton's excellent Perl script and tutorial: http://www.jibble.org/currentcost/
 # with modifications from Jamie Bennett: http://www.linuxuk.org/2008/12/currentcost-and-ubuntu/
 
@@ -10,20 +12,21 @@
 #    sudo perl -MCPAN -e shell
 # And then type:
 #    install Device::SerialPort
+# Alternatively, in Debian/Ubuntu:
+#    apt-get install libdevice-serialport-perl
 
-# To import into Open Office Calc:
-# On the import, select “separated by tabs” and “detect special numbers”
+# Also requires RRDtool: http://oss.oetiker.ch/rrdtool/
+#    apt-get install rrdtool
 
 use strict;
 use Device::SerialPort qw( :PARAM :STAT 0.07 );
 use POSIX qw(strftime);
 
+use sigtrap 'handler', \&clean_exit, 'normal-signals';
+
 my $PORT    = "/dev/ttyUSB0";
 my $LOGFILE = "data.txt";
-
-my $day;
-my $month;
-my $year;
+my $DUMP    = "input.xml";
 
 print "Current Cost logger...\n";
 
@@ -33,31 +36,48 @@ $ob->write_settings;
 
 open(SERIAL, "+>$PORT");
 print "Opened serial port.\n";
-print "UNIX  TIME\tWATTS\tDD/MM/YEAR HH:MM:SS\n";
+print "Unix  time\tPower\tDD/MM/YEAR HH:MM:SS\tt °C\n";
 
-while (my $line = <SERIAL>) {
-    if ($line =~ m!<time>(\d+):(\d+):(\d+)</time>.*<ch1><watts>(\d+)</watts></ch1>!) {
-	# For Perl regex help, see http://www.cs.tut.fi/~jkorpela/perl/regexp.html
-	# For Current Cost XML details, see http://www.currentcost.com/cc128/xml.htm
+open(MYFILE, ">>$LOGFILE");
+open(DUMP, ">>$DUMP");
+$| = 1;
 
-	# Data from Current Cost EnviR device:
-        my $hours = $1;
-        my $mins  = $2;
-        my $secs  = $3;
-        my $watts = $4;
+# Check at most once per second
+while (sleep 1) {
+	while (my $line = <SERIAL>) {
+		print DUMP $line;
+		if ($line =~ m!<time>(\d+):(\d+):(\d+)</time><tmpr> ?([0-9.-]+)</tmpr>.*<ch1><watts>(\d+)</watts></ch1>!) {
+			# For Perl regex help, see http://www.cs.tut.fi/~jkorpela/perl/regexp.html
+			# For Current Cost XML details, see http://www.currentcost.com/cc128/xml.htm
 
-	# Get today's date from local Linux host computer
-	my $datetime = strftime('%d/%m/%Y %H:%M:%S', localtime());
-	my $unixtime = strftime('%s', localtime());
+			# Data from Current Cost EnviR device:
+			my $hours = $1;
+			my $mins  = $2;
+			my $secs  = $3;
+			my $temp  = $4;
+			my $watts = $5;
 
-	my $output = "$unixtime\t$watts\t$datetime\n";
-        print $output;
+			# Get today's date from local Linux host computer
+			my $datetime = strftime('%d/%m/%Y %H:%M:%S', localtime());
+			my $unixtime = strftime('%s', localtime());
 
-	# Log the output to file
-	# Open and close on every iteration to flush it to disk every iteration
-	open(MYFILE, ">>$LOGFILE");
-        print MYFILE $output;
-	close(MYFILE);
-    }
+			my $output = "$unixtime\t$watts\t$datetime\t$temp\n";
+			print $output;
+
+			# Update RRDtool database
+			qx(rrdtool update powertemp.rrd N:$watts:$temp);
+
+			# Log the output to file
+			# Open and close on every iteration to flush it to disk every iteration
+			print MYFILE $output;
+		}
+	}
 }
 
+sub clean_exit {
+	close(MYFILE);
+	close(SERIAL);
+	close(DUMP);
+	print "Exiting\n";
+	exit 0;
+}
