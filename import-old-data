@@ -1,0 +1,101 @@
+#!/usr/bin/perl -w
+#
+# Quick script to do one-off import from history
+#
+
+use strict;
+
+#my $process = "hours";
+#my $process = "days";
+#my $process = "month";
+
+my $hourbasetime=qx(date +%s -d '2013-02-24 13:00');
+my $firstHour = 746;
+
+my $daybasetime=qx(date +%s -d '2013-02-23 01:00');
+my $firstDay = 90;
+
+my $monthbasetime=qx(date +%s -d '2012-01-01 00:00');
+
+print "Hour base " . $hourbasetime . "\n";
+print "Day base  " . $daybasetime . "\n";
+print "Month base " . $monthbasetime . "\n";
+
+while (<>) {
+    if ($process eq "hours") {
+	while (m!<h(\d+)>([.\d]+)</h\d+>!g) {
+	    my $n = $1;
+	    my $w = $2 / 2 * 1000;
+
+	    if ($w != "0.000") {
+		my $updates = "";
+		my $start = $hourbasetime-3600*$n;
+		print "From " . qx(date --date=\@'$start');
+		my $t;
+		for ($t = $start; $t < ($hourbasetime+7200-3600*$n); $t += 5) {
+		    $updates .= "$t:$w:U ";
+		}
+		print qx(rrdtool update newpowertemp.rrd $updates\n);
+		print "To   " . qx(date --date=\@'$t');
+	    }
+	}
+    }
+
+    elsif ($process eq "days") {
+	while (m!<d(\d+)>([.\d]+)</d\d+>!g) {
+	    my $n = $1;
+	    my $w = $2 / 24 * 1000;
+
+	    if ($w != "0.000") {
+		my $updates = "";
+		my $start = $daybasetime-24*3600*$n;
+		if ($start < ($hourbasetime-3600*$firstHour)) {
+		    print "From $start " . qx(date --date=\@'$start');
+		    my $t;
+		    for ($t = $start; $t < ($daybasetime+24*3600-24*3600*$n); $t += 5) {
+			$updates .= "$t:$w:U " if ($t < ($hourbasetime-3600*$firstHour));
+		    }
+		    print qx(rrdtool update newpowertemp.rrd $updates\n);
+		    print "To   $t " . qx(date --date=\@'$t');
+		}
+		else {
+		    print "Skipping, overlaps hour data\n";
+		}
+	    }
+	}
+    }
+
+    elsif ($process eq "month") {
+	while (m!<m(\d+)>([.\d]+)</m\d+>!g) {
+	    my $n = $1;
+	    my $w = $2 / 24 / (365.25/12) * 1000;
+
+	    if ($w != "0.000") {
+		my $updates = "";
+		my $start = qx(date +%s --date '2013-02-01 - $n months');
+		$start =~ s/^\s+|\s+$//g;
+		if ($start < ($daybasetime-3600*24*$firstDay)) {
+		    print "From $start " . qx(date --date=\@'$start');
+		    my $m = $n - 1;
+		    my $end = qx(date +%s --date '2013-02-01 - $m months');
+		    my $t;
+		    for ($t = $start; $t < $end; $t += 5) {
+			if (length($updates) > 10000) {
+			    print qx(rrdtool update newpowertemp.rrd $updates\n);
+			    $updates = "";
+			}
+			$updates .= "$t:$w:U " if ($t < ($daybasetime-3600*24*$firstDay));
+		    }
+		    print qx(rrdtool update newpowertemp.rrd $updates\n);
+		    print "To   $t " . qx(date --date=\@'$t');
+		}
+		else {
+		    print "Skipping, overlaps day data\n";
+		}
+	    }
+	}
+    }
+}
+
+# And to import from data log
+# perl -ne '$_ =~ m/(\d+)\t(\d+).*\t([0-9.]+)?/; print "$1\n"; qx(rrdtool update newpowertemp.rrd $1:$2:$3\n);' < data.txt

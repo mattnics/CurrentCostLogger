@@ -1,0 +1,38 @@
+Notes while writing import-old-data script.
+
+HOURS
+
+Forced dump taken at 2013-02-24 12:19:02 (device time), so relative to 11:01
+
+h006 0.307 kWh 4-6 hours ago  7-9h   13-n to 15-n
+h004 0.482 kWh 2-4 hours ago, 9-11h  13-n to 15-n
+h002 ----- kWh 0-2 hours ago, 11-13h 13-n to 15-n 1361710800-3600n to 1361718000-3600n
+
+so base time is 2013-02-24 13:00 = 1361710800
+
+Normal dump at 13:01 <h006>0.482</h006><h004>0.841</h004>
+
+h006 0.482 4-6 hours ago, 9-11h
+h004 0.841 2-4 hours ago, 11-13h
+h002 ----- 0-2 hours ago, 13-15h
+
+DAYS 
+
+base time is 
+d001 6.945 kWh 2013-02-23 01:00 to 2013-02-24 00:59, 1361581200-(24*3600*n) to 1361667600-(24*3600*n)
+
+d001 yesterday
+(d000 would be today)
+
+MONTHS
+
+m000 this month
+m001 last month
+m000 2013-02-01 to 2013-03-01 (approximating, ignoring 01:00 offset, if it exists)
+
+base time is
+m001 2013-01-01 01:00 to 2013-02-0        1357002000
+1388558952
+  31556952
+
+m025

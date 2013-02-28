@@ -1,11 +1,15 @@
-#!/bin/sh
+#!/bin/sh -e
 #
 # Initialise RRDtool database
 # 
 # From <http://www.jibble.org/currentcost/>
 #
 
-rrdtool create powertemp.rrd -b 0 --step 5 \
+file=newpowertemp.rrd
+
+[ -e $file ] && echo "$file already exists" && exit 1
+
+rrdtool create $file -b 1000000000 --step 5 \
     DS:Power:GAUGE:180:0:U \
     DS:Temperature:GAUGE:180:U:U \
     RRA:AVERAGE:0.5:1:3200 \
