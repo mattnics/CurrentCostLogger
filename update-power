@@ -7,6 +7,7 @@
 # use default (5, 15, 60 minutes, 1 day, 1 week, 1 month, 1 year).
 #
 
+db=powertemp.rrd
 outdir=.
 
 if [ -z $1 ]; then
@@ -33,9 +34,9 @@ if [ `basename $0` = "update-power" ]; then
 	    --color ARROW#a04040ff \
 	    --vertical-label Watts --lower-limit 0 --alt-autoscale-max \
 	    --units-length 4 --units-exponent 0 \
-	    DEF:Power=powertemp.rrd:Power:AVERAGE \
-	    DEF:PowerMin=powertemp.rrd:Power:MIN \
-	    DEF:PowerMax=powertemp.rrd:Power:MAX \
+	    DEF:Power=$db:Power:AVERAGE \
+	    DEF:PowerMin=$db:Power:MIN \
+	    DEF:PowerMax=$db:Power:MAX \
 	    LINE1:PowerMin#00a0e040 \
 	    LINE1:PowerMax#00a0e040 \
 	    LINE1:Power#00ffff \
@@ -62,9 +63,9 @@ if [ `basename $0` = "update-temperature" ]; then
 	    --color ARROW#a04040ff \
 	    --vertical-label °C --lower-limit 0 --alt-autoscale-max \
 	    --units-length 2 --units-exponent 0 \
-	    DEF:Temperature=powertemp.rrd:Temperature:AVERAGE \
-	    DEF:TemperatureMin=powertemp.rrd:Temperature:MIN \
-	    DEF:TemperatureMax=powertemp.rrd:Temperature:MAX \
+	    DEF:Temperature=$db:Temperature:AVERAGE \
+	    DEF:TemperatureMin=$db:Temperature:MIN \
+	    DEF:TemperatureMax=$db:Temperature:MAX \
 	    LINE0.5:TemperatureMin#a0e00040 \
 	    LINE0.5:TemperatureMax#a0e00040 \
 	    LINE1:Temperature#ffff00 \

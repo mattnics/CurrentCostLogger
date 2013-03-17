@@ -17,24 +17,46 @@
 
 # Also requires RRDtool: http://oss.oetiker.ch/rrdtool/
 #    apt-get install rrdtool
+# and Proc::Daemon
+#    apt-get install libproc-daemon-perl
 
 use strict;
 use Device::SerialPort qw( :PARAM :STAT 0.07 );
 use POSIX qw(strftime);
+use Proc::Daemon;
 
 use sigtrap 'handler', \&clean_exit, 'normal-signals';
 
-my $PORT    = "/dev/ttyUSB0";
-my $LOGFILE = "data.txt";
-my $DUMP    = "input.xml";
+if ($ARGV[0] eq "-d") {
+    Proc::Daemon::Init;
+    open(PIDFILE, ">/var/run/current-cost.pid");
+    print PIDFILE "$$\n";
+    close PIDFILE;
+}
 
-print "Current Cost logger...\n";
+my $SERIALPORT = $ENV{'SERIALPORT'};
+$SERIALPORT = "/dev/ttyUSB0" unless $SERIALPORT;
 
-my $ob = Device::SerialPort->new($PORT);
+my $LOGFILE = $ENV{'LOGFILE'};
+$LOGFILE = "data.txt" unless $LOGFILE;
+
+my $DUMP = $ENV{'DUMP'};
+$DUMP = "input.xml" unless $DUMP;
+
+my $DB = $ENV{'DB'};
+$DB = "powertemp.rrd" unless $DB;
+
+print "Current Cost logger\n";
+print "SERIALPORT -> $SERIALPORT\n";
+print "LOGFILE -> $LOGFILE\n";
+print "DUMP -> $DUMP\n";
+print "DB -> $DB\n";
+
+my $ob = Device::SerialPort->new($SERIALPORT);
 $ob->baudrate(57600);
 $ob->write_settings;
 
-open(SERIAL, "+>$PORT");
+open(SERIAL, "+>$SERIALPORT");
 print "Opened serial port.\n";
 print "Unix  time\tPower\tDD/MM/YEAR HH:MM:SS\tt °C\n";
 
@@ -42,8 +64,11 @@ open(MYFILE, ">>$LOGFILE");
 open(DUMP, ">>$DUMP");
 $| = 1;
 
+my $continue = 1;
+
 # Check at most once per second
-while (sleep 1) {
+while ($continue) {
+	sleep 1;
 	while (my $line = <SERIAL>) {
 		print DUMP $line;
 		if ($line =~ m!<time>(\d+):(\d+):(\d+)</time><tmpr> ?([0-9.-]+)</tmpr>.*<ch1><watts>(\d+)</watts></ch1>!) {
@@ -65,7 +90,7 @@ while (sleep 1) {
 			print $output;
 
 			# Update RRDtool database
-			qx(rrdtool update powertemp.rrd N:$watts:$temp);
+			qx(rrdtool update $DB N:$watts:$temp);
 
 			# Log the output to file
 			# Open and close on every iteration to flush it to disk every iteration
@@ -75,9 +100,14 @@ while (sleep 1) {
 }
 
 sub clean_exit {
+	$continue = 0;
 	close(MYFILE);
 	close(SERIAL);
 	close(DUMP);
 	print "Exiting\n";
 	exit 0;
 }
+
+# 25 months
+# 90 days
+# 746 hours

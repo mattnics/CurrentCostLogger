@@ -1,0 +1,25 @@
+#!/bin/zsh
+#
+
+./update-power 5 15 60 1440 10080 43829 525949
+./update-temperature 10080 43829 525949
+
+# 5 min
+(while (sleep 30); do ./update-power 5; done) &
+
+# 15 min
+(while (sleep 60); do ./update-power 15; done) &
+
+# 60 min
+(while (sleep 150); do ./update-power 60; done) &
+
+# 1440 min (day)
+(while (sleep 15m); do ./update-power 1440; done) &
+
+# 10080 min (week)
+(while (sleep 3h); do ./update-power 10080; ./update-temperature 10080; done) &
+
+# 43829 min (month)
+(while (sleep 12h); do ./update-power 43829; ./update-temperature 43829; done) &
+
+wait
