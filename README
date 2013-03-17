@@ -5,6 +5,8 @@ Forked from Jack Kelly's Perl script: https://github.com/JackKelly/CurrentCostLo
 Based on Paul Mutton's excellent Perl script and tutorial: http://www.jibble.org/currentcost/
 with modifications from Jamie Bennett: http://www.linuxuk.org/2008/12/currentcost-and-ubuntu/
 
+Example graphs and more information at http://matt.blissett.me.uk/apps/current-cost/
+
 ----------------
   Dependencies 
 ================
@@ -18,7 +20,17 @@ Alternatively, in Debian/Ubuntu:
 
 Also requires RRDtool: http://oss.oetiker.ch/rrdtool/
     apt-get install rrdtool
+and Proc::Daemon
+    apt-get install libproc-daemon-perl
 
+----------------
+  Installation
+================
+The program can either be run directly:
+    current-cost
+or installed as a daemon (on Debian) by copying 'init-current-cost' to /etc/init.d/current-cost
+and copying (and editing) 'default-current-cost' to /etc/defaults/current-cost.  Graphs can be
+generated using 'update-power' or 'generate-graphs'.
 
 ---------------
   Data format
