@@ -22,4 +22,7 @@
 # 43829 min (month)
 (while (sleep 12h); do ./update-power 43829; ./update-temperature 43829; done) &
 
+# 525949 min (year)
+(while (sleep 24h); do ./update-power 525949; ./update-temperature 525949; done) &
+
 wait

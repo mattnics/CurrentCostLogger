@@ -34,6 +34,9 @@ if ($ARGV[0] eq "-d") {
     close PIDFILE;
 }
 
+my $DEBUG = $ENV{'DEBUG'};
+$DEBUG = 0 unless $DEBUG;
+
 my $SERIALPORT = $ENV{'SERIALPORT'};
 $SERIALPORT = "/dev/ttyUSB0" unless $SERIALPORT;
 
@@ -60,8 +63,8 @@ open(SERIAL, "+>$SERIALPORT");
 print "Opened serial port.\n";
 print "Unix  time\tPower\tDD/MM/YEAR HH:MM:SS\tt °C\n";
 
-open(MYFILE, ">>$LOGFILE");
-open(DUMP, ">>$DUMP");
+open(MYFILE, ">>$LOGFILE") if $DEBUG;
+open(DUMP, ">>$DUMP") if $DEBUG;
 $| = 1;
 
 my $continue = 1;
@@ -87,23 +90,22 @@ while ($continue) {
 			my $unixtime = strftime('%s', localtime());
 
 			my $output = "$unixtime\t$watts\t$datetime\t$temp\n";
-			print $output;
+			print $output if $DEBUG;
 
 			# Update RRDtool database
 			qx(rrdtool update $DB N:$watts:$temp);
 
 			# Log the output to file
-			# Open and close on every iteration to flush it to disk every iteration
-			print MYFILE $output;
+			print MYFILE $output if $DEBUG;
 		}
 	}
 }
 
 sub clean_exit {
 	$continue = 0;
-	close(MYFILE);
+	close(MYFILE) if $DEBUG;
 	close(SERIAL);
-	close(DUMP);
+	close(DUMP) if $DEBUG;
 	print "Exiting\n";
 	exit 0;
 }

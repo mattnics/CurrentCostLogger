@@ -1,6 +1,8 @@
 CC_DIR=/var/lib/current-cost
 DATE=$(date +%Y%d%m)
 
+export DEBUG=0
+
 export SERIALPORT=/dev/ttyUSB0
 export LOGFILE=$CC_DIR/data-$DATE.txt
 export DUMP=$CC_DIR/input-$DATE.xml
