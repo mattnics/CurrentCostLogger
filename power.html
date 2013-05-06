@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Power usage</title>
-		<meta http-equiv="refresh" content="30"/>
+		<!--meta http-equiv="refresh" content="30"/-->
 		<style type="text/css">
 			html, body { color: white; background: black; font-family: sans-serif; }
 			h1, h2 { color: lime; }
@@ -12,18 +12,17 @@
 	<body>
 		<div id="c">
 			<h1>Power use</h1>
-
 			<div id="p5m">
 				<p>Last five minutes</p>
-				<img src="power-5min.svg" alt="Power usage graph for the last 5 minutes" />
+				<img id="p5i" widtxh="850" height="180" src="power-5min.svg" alt="Power usage graph for the last 5 minutes" />
 			</div>
 			<div id="p15m">
 				<p>Last fifteen minutes</p>
-				<img src="power-15min.svg" alt="Power usage graph for the last 15 minutes" />
+				<img id="p15i" height="180" src="power-15min.svg" alt="Power usage graph for the last 15 minutes" />
 			</div>
 			<div id="p60m">
 				<p>Last hour</p>
-				<img src="power-60min.svg" alt="Power usage graph for the last hour" />
+				<img id="p60i" height="180" src="power-60min.svg" alt="Power usage graph for the last hour" />
 			</div>
 			<div id="p1449m">
 				<p>Last day</p>
@@ -58,4 +57,18 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+		window.setInterval(update60, 60000);
+		function update60() {
+			document.images["p5i"].src = "power-5min.svg?" + new Date().getTime();
+		}
+		window.setInterval(update120, 120000);
+		function update120() {
+			document.images["p15i"].src = "power-15min.svg?" + new Date().getTime();
+		}
+		window.setInterval(update1800, 1800000);
+		function update1800() {
+			document.images["p60i"].src = "power-60min.svg?" + new Date().getTime();
+		}
+	</script>
 </html>
