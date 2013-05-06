@@ -1,0 +1,541 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Current Cost CC128 Display Unit</title>
+<style>
+<!--
+ p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+ div.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Arial","sans-serif";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+-->
+</style>
+</head>
+
+<body>
+
+<p class="MsoNormal" align="center" style="text-align:center">
+<span style="font-size: 24.0pt; font-family: 'Trebuchet MS',sans-serif">Current 
+Cost CC128 Display Unit</span></p>
+<p class="MsoNormal"><b><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></b></p>
+<div class="MsoNormal" align="center" style="text-align:center">
+	<b><span style="font-family: 'Trebuchet MS',sans-serif">
+	<hr size="2" width="100%" align="center"></span></b></div>
+<p class="MsoNormal" align="center" style="margin-top:18.0pt;margin-right:0cm;
+margin-bottom:18.0pt;margin-left:0cm;text-align:center"><b>
+<span style="font-size: 18.0pt; font-family: 'Trebuchet MS',sans-serif">XML 
+OUTPUT DESCRIPTION - v0.11</span></b></p>
+<div class="MsoNormal" align="center" style="text-align:center">
+	<b><span style="font-family: 'Trebuchet MS',sans-serif">
+	<hr size="2" width="100%" align="center"></span></b></div>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">1.&nbsp; 
+Serial Port</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+CC128 Display Unit outputs ASCII text over its serial port at 57600 baud, 1 
+start, 8-bit data, 1 stop, no parity, no handshake. This version does not listen 
+for incoming data.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Using 
+the optional Current Cost serial port cable, a standard PC's COM1 Port will 
+receive the raw data for display using a terminal emulator program like Windows 
+HyperTerminal. For a quick check, a batch command like the following works on 
+some PC systems. Obviously, edit the &quot;com1&quot; text to match the Com port in use.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">@echo off</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">title CurrentCost 
+Data Display</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">color f0</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">prompt &quot;&quot;</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">mode con: cols=100 &gt; 
+nul</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">mode com1: 
+baud=57600 parity=n data=8 stop=1 &gt; nul</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">echo Displaying data 
+received from com1 serial port. Press Ctrl-C to stop...</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">echo.</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">type com1</span></p>
+<p class="MsoNormal" style="margin-top:0cm;margin-right:-25.7pt;margin-bottom:
+0cm;margin-left:18.0pt;margin-bottom:.0001pt">
+<span style="font-size: 9.0pt; font-family: Lucida Console">pause</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">If the 
+PC does not have a COM serial port, the optional Current Cost USB cable can be 
+used in conjunction with driver software to create a virtual COM port. The 
+Prolific PL-2303 Drivers support Windows 2K/XP (not Vista, although there may be 
+third party compatible drivers available), MacOS (8, 9 and 10.x PowerPC and 
+Intel) and Linux (some kernels include support without additional drivers).</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">If the 
+data is captured to a text file, some HTML browsers will open this to display 
+the block of XML for easier reading, but the text must be prefixed and post 
+fixed with a block label, eg &lt;xml&gt;...&lt;/xml&gt;. MS Excel will read this data and it 
+can be auto filtered. Alternatively there are free XML viewers available. All 
+these programs start to load very slowly with file sizes above 2MB. There is no 
+separate schema available, the programs will create their own.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+intention of providing the xml data is to enable custom software to be created 
+to use the information in whatever way meets your personal or company objectives 
+or interests.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<b><span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">
+<br clear="all" style="page-break-before:always">
+&nbsp;</span></b><p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">2.&nbsp; 
+Real-Time Output</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+Display Unit outputs Sensor data whenever a successful Sensor Transmission is 
+received.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+CC128 message structure is slightly compressed compared with the Current Cost 
+&quot;Classic&quot; format, as follows:</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">
+&lt;msg&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">start of message</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;src&gt;CC128-v0.11&lt;/src&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">source and software 
+version</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;dsb&gt;00089&lt;/dsb&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">days since birth, ie days 
+run</span> </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;time&gt;13:02:39&lt;/time&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">24 hour clock time as 
+displayed</span> </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;tmpr&gt;18.7&lt;/tmpr&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">temperature as displayed</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;sensor&gt;1&lt;/sensor&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">Appliance Number as 
+displayed</span> </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;id&gt;01234&lt;/id&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r<span style="color:navy">adio ID received from 
+the sensor</span> </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;type&gt;1&lt;/type&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">sensor Type, &quot;1&quot; = 
+electricity</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;ch1&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">sensor channel</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;watts&gt;00345&lt;/watts&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">data and units</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; &lt;/ch1&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; &lt;ch2&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;watts&gt;02151&lt;/watts&gt; </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; &lt;/ch2&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; &lt;ch3&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;watts&gt;00000&lt;/watts&gt; </span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; &lt;/ch3&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt; margin-right: 0cm; margin-top: 1.0pt; margin-bottom: 1.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">
+&lt;/msg&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">end of message</span></span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;
+</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">This 
+message is sent out for each Appliance Sensor received (sensor 1 to 9) plus the 
+&quot;Whole House&quot; Sensor, which is listed as sensor 0.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<b><span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">
+<br clear="all" style="page-break-before:always">
+&nbsp;</span></b><p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">3.&nbsp; 
+History Output</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">A full 
+cycle of History messages are output starting at 1 minute past every odd hour, 
+ie 17:01, 19:01 etc. A burst of data is sent once every 10 seconds. History Data 
+is sent for all 10 sensors regardless if they are now present or not.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Four 
+items of sensor data for each of 10 sensors are sent each xml burst, ie 40 
+items. When the data from one store is completely sent, the data from the next 
+store is sent. When the cycle is completed, the wire is quiet of history data 
+until the start of the next cycle.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">A full 
+cycle of output can be initiated for download on demand by pressing and holding 
+the Down and OK buttons together until the LED flashes. Real-time XML output and 
+all on-screen update including the time stops while this is happening.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;
+</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">3.1&nbsp; 
+Two-Hourly History Store</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+last 31 days Energy Usage is output as 2-hour aggregates of KWHr (3720 values 
+covering 9 Appliances plus Whole House), the data being aggregated starting at 
+odd hours, eg 23:00 to 01:00, 01:00 to 03:00 etc. This accommodates industry 
+requests to view evening and night data segments distinguished at 23:00.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">
+&quot;Sensor 0&quot; refers to the &quot;Whole House&quot; and Sensors 1 to 9 are Appliance Sensors.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Where 
+sensors have more than one channel, the value presented is the total of all 
+channels.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">
+&lt;msg&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">start of message</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;src&gt;CC128-v0.11&lt;/src&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<span style="color:navy">as for Real-Time]</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;dsb&gt;00089&lt;/dsb&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<span style="color:navy">as for Real-Time]</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;time&gt;13:10:50&lt;/time&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<span style="color:navy">as for Real-Time]</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&lt;hist&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">start of history</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;dsw&gt;00032&lt;/dsw&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">days since wipe of 
+history</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;type&gt;1&lt;/type&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">sensor Type, &quot;1&quot; = 
+electricity</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;units&gt;kwhr&lt;/units&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">units of data eg KWHr</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;data&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">start of data burst</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;sensor&gt;0&lt;/sensor&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h<span style="color:navy">istoric Appliance Number</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;h024&gt;001.1&lt;/h024&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">h=&quot;hours&quot;, 24=&quot;22 to 24 hrs 
+ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;h022&gt;000.9&lt;/h022&gt; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">h=&quot;hours&quot;, 22=&quot;20 to 22 hrs 
+ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;h020&gt;000.3&lt;/h020&gt; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">h=&quot;hours&quot;, 18=&quot;20 to 20 hrs 
+ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;h018&gt;000.4&lt;/h018&gt; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">h=&quot;hours&quot;, 22=&quot;16 to 18 hrs 
+ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:navy">... </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:navy">[Sensor 1 to 8 data here]</span></span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;data&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;sensor&gt;9&lt;/sensor&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h024&gt;000.0&lt;/h024&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;h022&gt;000.0&lt;/h022&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;h020&gt;000.0&lt;/h020&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;h018&gt;000.0&lt;/h018&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;/hist&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&lt;/msg&gt; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">end of message</span></span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">
+<br clear="all" style="page-break-before:always">
+&nbsp;</span><p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">3.2&nbsp; 
+Daily History Store</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+last 90 days Energy Usage is output as daily aggregates of KWHr (900 values 
+covering 9 Appliances plus Whole House).</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">For 
+simplicity, this data overlaps the 2-hr history store in the present version.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">
+&quot;Sensor 0&quot; refers to the &quot;Whole House&quot; and Sensors 1 to 9 are Appliance Sensors.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Where 
+sensors have more than one channel, the value presented is the total of all 
+channels.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&lt;msg&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;src&gt;CC128-v0.11&lt;/src&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;dsb&gt;00089&lt;/dsb&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;time&gt;13:10:50&lt;/time&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; &nbsp;&lt;hist&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;dsw&gt;00032&lt;/dsw&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;type&gt;1&lt;/type&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;sensor&gt;0&lt;/sensor&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;d055&gt;012.9&lt;/d055&gt; &nbsp;&nbsp;&nbsp;&nbsp; d<span style="color:navy">=&quot;days&quot;, 055=&quot;55 days ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;d054&gt;011.0&lt;/d054&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;d053&gt;014.3&lt;/d053&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;d052&gt;019.5&lt;/d052&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:navy">&nbsp;...</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:navy">[Sensor 1 to 8 data here]</span></span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;sensor&gt;9&lt;/sensor&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;d055&gt;000.0&lt;/d055&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;d054&gt;000.0&lt;/d054&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;d053&gt;000.0&lt;/d053&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;d052&gt;000.0&lt;/d052&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;&nbsp; &nbsp;&nbsp;&lt;/hist&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-family: 'Trebuchet MS',sans-serif">&lt;/msg&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">
+<br clear="all" style="page-break-before:always">
+&nbsp;</span><p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">3.3&nbsp; 
+Monthly History Store</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">The 
+last 84 months Energy Usage is output as monthly aggregates of KWHr (840 values 
+covering 9 Appliances plus Whole House).</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">For 
+simplicity, this data overlaps the 2-hr and Daily history stores in the present 
+version [<i>subject to review</i>].</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">
+&quot;Sensor 0&quot; refers to the &quot;Whole House&quot; and Sensors 1 to 9 are Appliance Sensors.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Where 
+sensors have more than one channel this is stored totalled.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&lt;msg&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;src&gt;CC128-v0.11&lt;/src&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;dsb&gt;00089&lt;/dsb&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; 
+&nbsp;&lt;time&gt;13:10:50&lt;/time&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp; &nbsp;&lt;hist&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;dsw&gt;00032&lt;/dsw&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;type&gt;1&lt;/type&gt;</span></p>
+<p class="MsoNormal" style="margin-left: 18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&lt;data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&lt;sensor&gt;0&lt;/sensor&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&lt;units&gt;kwhr&lt;/units&gt;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;m002&gt;257.0&lt;/m002&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:navy">m=&quot;month&quot;, 002=&quot;2 months ago&quot;</span></span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;m001&gt;340.0&lt;/m001&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="color:navy">...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [Sensor 1 to 8 data here]</span></span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;sensor&gt;9&lt;/sensor&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;units&gt;kwhr&lt;/units&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;m002&gt;000.0&lt;/m002&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;m001&gt;000.0&lt;/m001&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/data&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;&nbsp;&nbsp;&nbsp; &lt;/hist&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&lt;/msg&gt;</span></p>
+<p class="MsoNormal" style="margin-left:18.0pt">
+<span style="font-size: 10.0pt; font-family: Bitstream Vera Sans Mono">&nbsp;</span></p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: 'Trebuchet MS',sans-serif">4.&nbsp; 
+Document Version</span></b></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">This 
+Description was issued on 18th February 2009 and is subject to change without 
+notice. The authors, copyright holders and publishers carry no liabilities 
+whatsoever for losses of any sort, primary or secondary, time or money or 
+anything else. All information must be verified before use by examination of 
+actual data structures and timings by the practitioner. Accuracy of transmitted 
+or received data is not warranted under any circumstances. Anyone using data 
+derived from the product or any product description must perform their own risk 
+assessment.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">Having 
+said that, we will try to notify interested folks of any changes as soon as 
+practicable either directly or through web sites or blogs, and we will 
+gratefully receive comments, criticism and suggestions for improvements from 
+anyone.</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: 'Trebuchet MS',sans-serif">
+Current Cost Ltd</span></p>
+
+</body>
+
+</html>
