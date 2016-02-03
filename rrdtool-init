@@ -9,30 +9,23 @@ file=newpowertemp.rrd
 
 [ -e $file ] && echo "$file already exists" && exit 1
 
+# Newer RRDtool version needed for this (clearer) syntax.  Works in 1.5.4, not in 1.4.8.
+rrdtool create $file -b 1000000000 --step 5s \
+    DS:Power:GAUGE:180s:0:U \
+    DS:Temperature:GAUGE:180s:U:U \
+    RRA:AVERAGE:0.5:5s:1d \
+    RRA:AVERAGE:0.5:1h:10y \
+    RRA:MIN:0.5:5s:1d \
+    RRA:MIN:0.5:1h:10y \
+    RRA:MAX:0.5:5s:1d \
+    RRA:MAX:0.5:1h:10y \
+|| \
 rrdtool create $file -b 1000000000 --step 5 \
     DS:Power:GAUGE:180:0:U \
     DS:Temperature:GAUGE:180:U:U \
-    RRA:AVERAGE:0.5:1:3200 \
-    RRA:AVERAGE:0.5:6:3200 \
-    RRA:AVERAGE:0.5:36:3200 \
-    RRA:AVERAGE:0.5:144:3200 \
-    RRA:AVERAGE:0.5:1008:3200 \
-    RRA:AVERAGE:0.5:4320:3200 \
-    RRA:AVERAGE:0.5:52560:3200 \
-    RRA:AVERAGE:0.5:525600:3200 \
-    RRA:MIN:0.5:1:3200 \
-    RRA:MIN:0.5:6:3200 \
-    RRA:MIN:0.5:36:3200 \
-    RRA:MIN:0.5:144:3200 \
-    RRA:MIN:0.5:1008:3200 \
-    RRA:MIN:0.5:4320:3200 \
-    RRA:MIN:0.5:52560:3200 \
-    RRA:MIN:0.5:525600:3200 \
-    RRA:MAX:0.5:1:3200 \
-    RRA:MAX:0.5:6:3200 \
-    RRA:MAX:0.5:36:3200 \
-    RRA:MAX:0.5:144:3200 \
-    RRA:MAX:0.5:1008:3200 \
-    RRA:MAX:0.5:4320:3200 \
-    RRA:MAX:0.5:52560:3200 \
-    RRA:MAX:0.5:525600:3200
+    RRA:AVERAGE:0.5:1:17280 \
+    RRA:AVERAGE:0.5:720:87600 \
+    RRA:MIN:0.5:1:17280 \
+    RRA:MIN:0.5:720:87600 \
+    RRA:MAX:0.5:1:17280 \
+    RRA:MAX:0.5:720:87600
