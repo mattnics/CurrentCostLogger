@@ -13,6 +13,7 @@ my $basetime = Time::Piece->strptime("$ARGV[1]", "%Y-%m-%d %H:%M:%S");
 
 # Double-check these offsets if you're relying on them for something important
 # An improvement would be to see what the oldest day and hour actually in the dataset are.
+# Oops! see the notes file, this is not correct — according to me 3 years ago, the h/d/m000 would be the current hour/day/month.
 my $finalHourEnd = Time::Piece->strptime($basetime->year . "-" . $basetime->mon . "-" . $basetime->mday . " " . $basetime->hour . ":00:00", "%Y-%m-%d %H:%M:%S") + ONE_HOUR;
 my $firstHourStart = $basetime - 31 * ONE_DAY;
 
