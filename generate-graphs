@@ -1,8 +1,19 @@
-#!/bin/zsh
+#!/bin/zsh -e
 #
+
+earliestDate=2012-07-01
+
+wholePeriod() {
+    minutesSinceStart=$(( (`date +%s` - `date +%s -d $earliestDate`) / 60 ))
+    ./update-power $minutesSinceStart
+    ./update-temperature $minutesSinceStart
+    mv --force power-${minutesSinceStart}min.svg power-since-start.svg
+    mv --force temperature-${minutesSinceStart}min.svg temperature-since-start.svg
+}
 
 ./update-power 5 15 60 1440 10080 43829 525949
 ./update-temperature 10080 43829 525949
+wholePeriod
 
 # 5 min
 (while (sleep 30); do ./update-power 5; done) &
@@ -24,5 +35,8 @@
 
 # 525949 min (year)
 (while (sleep 24h); do ./update-power 525949; ./update-temperature 525949; done) &
+
+# Since the start
+(while (sleep 24h); do wholePeriod; done) &
 
 wait
