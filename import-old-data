@@ -4,96 +4,104 @@
 #
 
 use strict;
+use Time::Piece;
+use Time::Seconds;
 
-#my $process = "hours";
-#my $process = "days";
-#my $process = "month";
+my $process = $ARGV[0]; # months, days, hours
 
-my $hourbasetime=qx(date +%s -d '2013-02-24 13:00');
-my $firstHour = 746;
+my $basetime = Time::Piece->strptime("$ARGV[1]", "%Y-%m-%d %H:%M:%S");
 
-my $daybasetime=qx(date +%s -d '2013-02-23 01:00');
-my $firstDay = 90;
+# Double-check these offsets if you're relying on them for something important
+# An improvement would be to see what the oldest day and hour actually in the dataset are.
+my $finalHourEnd = Time::Piece->strptime($basetime->year . "-" . $basetime->mon . "-" . $basetime->mday . " " . $basetime->hour . ":00:00", "%Y-%m-%d %H:%M:%S") + ONE_HOUR;
+my $firstHourStart = $basetime - 31 * ONE_DAY;
 
-my $monthbasetime=qx(date +%s -d '2012-01-01 00:00');
+my $finalDayEnd = Time::Piece->strptime($basetime->year . "-" . $basetime->mon . "-" . $basetime->mday, "%Y-%m-%d") + ONE_DAY;
+my $firstDayStart = $basetime - 89 * ONE_DAY;
+$firstDayStart = Time::Piece->strptime($firstDayStart->ymd, "%Y-%m-%d");
 
-print "Hour base " . $hourbasetime . "\n";
-print "Day base  " . $daybasetime . "\n";
-print "Month base " . $monthbasetime . "\n";
+my $finalMonthEnd = Time::Piece->strptime($basetime->year . "-" . $basetime->mon . "-01", "%Y-%m-%d")->add_months(1);
+my $firstMonthStart = $finalMonthEnd->add_months(-83);
 
-while (<>) {
+print "Log dump time        " . $basetime->datetime . "\n";
+print "\n";
+print "Start of first hour  " . $firstHourStart->datetime . "\n";
+print "Start of first day   " . $firstDayStart->datetime . "\n";
+print "Start of first month " . $firstMonthStart->datetime . "\n";
+print "\n";
+print "End of final hour    " . $finalHourEnd->datetime . "\n";
+print "End of final day     " . $finalDayEnd->datetime . "\n";
+print "End of final month   " . $finalMonthEnd->datetime . "\n";
+
+while (<STDIN>) {
+
     if ($process eq "hours") {
 	while (m!<h(\d+)>([.\d]+)</h\d+>!g) {
-	    my $n = $1;
+	    my $n = $1 - 2;
 	    my $w = $2 / 2 * 1000;
 
 	    if ($w != "0.000") {
-		my $updates = "";
-		my $start = $hourbasetime-3600*$n;
-		print "From " . qx(date --date=\@'$start');
-		my $t;
-		for ($t = $start; $t < ($hourbasetime+7200-3600*$n); $t += 5) {
-		    $updates .= "$t:$w:U ";
-		}
-		print qx(rrdtool update newpowertemp.rrd $updates\n);
-		print "To   " . qx(date --date=\@'$t');
+		my $start = $finalHourEnd - $n * ONE_HOUR - ONE_HOUR;
+		my $end = $finalHourEnd - $n * ONE_HOUR;
+
+		writeInterval($start, $end, $basetime, $w);
 	    }
 	}
     }
 
     elsif ($process eq "days") {
 	while (m!<d(\d+)>([.\d]+)</d\d+>!g) {
-	    my $n = $1;
+	    my $n = $1 - 1;
 	    my $w = $2 / 24 * 1000;
 
 	    if ($w != "0.000") {
-		my $updates = "";
-		my $start = $daybasetime-24*3600*$n;
-		if ($start < ($hourbasetime-3600*$firstHour)) {
-		    print "From $start " . qx(date --date=\@'$start');
-		    my $t;
-		    for ($t = $start; $t < ($daybasetime+24*3600-24*3600*$n); $t += 5) {
-			$updates .= "$t:$w:U " if ($t < ($hourbasetime-3600*$firstHour));
-		    }
-		    print qx(rrdtool update newpowertemp.rrd $updates\n);
-		    print "To   $t " . qx(date --date=\@'$t');
-		}
-		else {
-		    print "Skipping, overlaps hour data\n";
-		}
+		my $start = $finalDayEnd - $n * ONE_DAY - ONE_DAY;
+		my $end = $finalDayEnd - $n * ONE_DAY;
+
+		writeInterval($start, $end, $firstHourStart, $w);
 	    }
 	}
     }
 
-    elsif ($process eq "month") {
+    elsif ($process eq "months") {
 	while (m!<m(\d+)>([.\d]+)</m\d+>!g) {
-	    my $n = $1;
+	    #print "matches $1 $2\n";
+	    my $n = $1 - 1;
 	    my $w = $2 / 24 / (365.25/12) * 1000;
 
 	    if ($w != "0.000") {
-		my $updates = "";
-		my $start = qx(date +%s --date '2013-02-01 - $n months');
-		$start =~ s/^\s+|\s+$//g;
-		if ($start < ($daybasetime-3600*24*$firstDay)) {
-		    print "From $start " . qx(date --date=\@'$start');
-		    my $m = $n - 1;
-		    my $end = qx(date +%s --date '2013-02-01 - $m months');
-		    my $t;
-		    for ($t = $start; $t < $end; $t += 5) {
-			if (length($updates) > 10000) {
-			    print qx(rrdtool update newpowertemp.rrd $updates\n);
-			    $updates = "";
-			}
-			$updates .= "$t:$w:U " if ($t < ($daybasetime-3600*24*$firstDay));
-		    }
-		    print qx(rrdtool update newpowertemp.rrd $updates\n);
-		    print "To   $t " . qx(date --date=\@'$t');
-		}
-		else {
-		    print "Skipping, overlaps day data\n";
-		}
+		my $start = $finalMonthEnd->add_months(- $n - 1);
+		my $end = $finalMonthEnd->add_months(- $n);
+
+		writeInterval($start, $end, $firstDayStart, $w);
 	    }
 	}
+    }
+
+    else {
+	die "Interval is months, days or hours\n";
+    }
+}
+
+sub writeInterval {
+    (my $start, my $end, my $limit, my $power) = @_;
+
+    my $updates = "";
+
+    print "Period " . $start->datetime . " to " . $end->datetime . " has average power $power\n";
+    if ($start < $limit) {
+	my $t;
+	for ($t = $start->epoch; $t < $end->epoch && $t < $limit->epoch; $t += 5) {
+	    if (length($updates) > 10000) {
+		print qx(rrdtool update newpowertemp.rrd $updates\n);
+		$updates = "";
+	    }
+	    $updates .= "$t:$power:U ";
+	}
+	print qx(rrdtool update newpowertemp.rrd $updates\n);
+    }
+    else {
+	print "Skipping, beyond limit of this interval\n";
     }
 }
 
