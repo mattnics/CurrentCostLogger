@@ -73,7 +73,7 @@ my $continue = 1;
 while ($continue) {
 	sleep 1;
 	while (my $line = <SERIAL>) {
-		print DUMP $line;
+		print DUMP $line if $DEBUG;
 		if ($line =~ m!<time>(\d+):(\d+):(\d+)</time><tmpr> ?([0-9.-]+)</tmpr>.*<ch1><watts>(\d+)</watts></ch1>!) {
 			# For Perl regex help, see http://www.cs.tut.fi/~jkorpela/perl/regexp.html
 			# For Current Cost XML details, see http://www.currentcost.com/cc128/xml.htm
