@@ -1,7 +1,7 @@
 Reads data from a Current Cost EnviR display via USB port to a Linux machine and logs the data to a file.
 Also updates an RRDtool round robin database.
 
-Forked from Jack Kelly's Perl script: https://github.com/JackKelly/CurrentCostLogger which itself was…
+Forked from Matt Blissetts Fork from Jack Kelly's Perl script: https://github.com/JackKelly/CurrentCostLogger which itself was…
 Based on Paul Mutton's excellent Perl script and tutorial: http://www.jibble.org/currentcost/
 with modifications from Jamie Bennett: http://www.linuxuk.org/2008/12/currentcost-and-ubuntu/
 
